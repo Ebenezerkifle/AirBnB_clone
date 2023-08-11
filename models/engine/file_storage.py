@@ -2,7 +2,6 @@
 # file_storage.py
 """Represents a file sotrage class"""
 import json
-import os
 from models.base_model import BaseModel
 
 
@@ -22,7 +21,12 @@ class FileStorage():
 
     def new(self, obj):
         """creats a new dictionary of an object vs id pair"""
-        FileStorage._objects = {'{}.{}'.format(obj.__class__.__name__, obj.id): obj}
+        obj_key = '{}.{}'.format(obj.__class__.__name__, obj.id)
+        #check if this object is already stored
+        if self.__objects.keys().__contains__(obj_key):
+            return
+        type(self).__objects[obj_key] = obj
+
 
     def save(self):
         """serializes the object to JSON file"""
@@ -37,9 +41,10 @@ class FileStorage():
         """Deserializes the JSON file to __objects if it exists"""
         try:
             with open(type(self).__file_path, "r") as file:
-                new_obj = json.load(file)
-                for key, val in new_obj.items():
-                    obj = self.class_dict[val['__class__']](**val)
-                    type(self).__objects[key] = obj
+                saved_objs = json.load(file)
+                for obj in saved_objs:
+                    baseModel=BaseModel(**obj) #converts a dict to an object
+                    obj_key = '{}.{}'.format(baseModel.__class__.__name__, baseModel.id)
+                    type(self).__objects[obj_key] = baseModel
         except Exception:
             pass
