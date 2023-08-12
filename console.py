@@ -2,19 +2,22 @@
 # console.py
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 """The command Interpreter representaion"""
 
 classes = {
-    'BaseModel': BaseModel
+    'BaseModel': BaseModel,
+    'User': User
 }
 
 
 class HBNBCommand(cmd.Cmd):
     """command interpreter class"""
+    intro = 'Welcome to Command interpreter.    Type help or ? to list commands.\n'
+    prompt = '(hbnb) '
 
-    prompt = "(hbnb) "
-
+    # ----- basic commands -----
     # quit command implementation
     def do_quit(self, args):
         """Quit command to exit the program"""
@@ -103,12 +106,11 @@ class HBNBCommand(cmd.Cmd):
             print([str(value) for key, value in storage.all().items()])
         elif args in classes:
             # for the case when the class name is given
-            # todo filter...
             filtered_objs = []
             for key, value in storage.all().items():
                 cl_name = key.split('.')
                 if cl_name[0] == args:
-                    filtered_objs.append(value)
+                    filtered_objs.append(str(value))
             print(filtered_objs)
         else:
             print("** class doesn't exist **")

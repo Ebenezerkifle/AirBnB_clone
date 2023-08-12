@@ -3,6 +3,7 @@
 """Represents a file sotrage class"""
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage():
@@ -41,11 +42,14 @@ class FileStorage():
         try:
             with open(type(self).__file_path, "r") as file:
                 saved_objs = json.load(file)
-                for obj in saved_objs:
+                for dic in saved_objs:
                     # converts a dict to an object
-                    baseModel = BaseModel(**obj)
+                    if dic['__class__'] == 'BaseModel':
+                        obj = BaseModel(**dic)
+                    elif dic['__class__'] == 'User':
+                        obj = User(**dic)
                     obj_key = '{}.{}'.format(
-                        baseModel.__class__.__name__, baseModel.id)
-                    type(self).__objects[obj_key] = baseModel
+                        obj.__class__.__name__, obj.id)
+                    type(self).__objects[obj_key] = obj
         except Exception:
             pass
