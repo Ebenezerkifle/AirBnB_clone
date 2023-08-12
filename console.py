@@ -4,12 +4,22 @@ import cmd
 import re
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+from models.state import State
 from models import storage
 """The command Interpreter representaion"""
 
 classes = {
     'BaseModel': BaseModel,
-    'User': User
+    'User': User,
+    'Place': Place,
+    'City': City,
+    'Amenity': Amenity,
+    'Review': Review,
+    'State': State,
 }
 
 
