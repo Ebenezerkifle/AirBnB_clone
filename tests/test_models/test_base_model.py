@@ -7,7 +7,7 @@ Unittest classes:
     TestBase_from_json_string
     TestBaseModel_to_dict
 """
-import datetime
+from datetime import datetime
 import unittest
 import json
 import re
@@ -36,8 +36,8 @@ class TestBaseModel_Instantiation(unittest.TestCase):
         b1 = BaseModel()
         self.assertIsInstance(b1, BaseModel)
         self.assertEqual(
-            str(type(b1), "<class 'models.base_model.BaseModel'>"))
-        self.assertEqual(issubclass(type(b1), BaseModel))
+            str(type(b1)), "<class 'models.base_model.BaseModel'>")
+        self.assertTrue(issubclass(type(b1), BaseModel))
 
     # test case to check if the two instances have the same id
     def test_CompareTwoInstancesId(self):
@@ -80,7 +80,7 @@ class TestBaseModel_Instantiation(unittest.TestCase):
     def test_Type_of_created_at(self):
         """Test for the data type of created_at"""
         b1 = BaseModel()
-        self.assertIsInstance(b1.created_at, datetime)
+        self.assertIsInstance((b1.created_at), datetime)
 
     # test case to check if the attribute updated_at exists
     def test_Contains_updated_at(self):
@@ -92,7 +92,7 @@ class TestBaseModel_Instantiation(unittest.TestCase):
     def test_Type_of_updated_at(self):
         """Test for the data type of updated_at"""
         b1 = BaseModel()
-        self.assertIsInstance(b1.updated_at, datetime)
+        self.assertIsInstance((b1.updated_at), datetime)
 
     def test_datetime_created(self):
         """Tests if updated_at & created_at are current at creation."""
