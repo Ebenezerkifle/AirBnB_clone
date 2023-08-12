@@ -4,11 +4,13 @@ import cmd
 from models.base_model import BaseModel
 from models import storage
 
-
 classes = {
     'BaseModel': BaseModel
 }
 
+classes = {
+    'BaseModel': BaseModel
+}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -95,6 +97,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     # all command implementation
+
     def do_all(self, args):
         """Prints all String representation of all instances based or not on the class name"""
         if args == '':
@@ -111,7 +114,25 @@ class HBNBCommand(cmd.Cmd):
             print(filtered_objs)
         else:
             print("** class doesn't exist **")
-
+  
+    def do_update(self, args):
+        """Updates an instance based on the class name and id by adding or updating attribute"""
+        if args == "":
+            print("** class name missing **")
+            return
+        commands = args.split()
+        if commands[0] not in classes:
+            print("** class doesn't exist **")
+            return
+        elif len(commands) < 2:
+            print("** instance id missing **")
+        else:
+            obj_key = '{}.{}'.format(commands[0], commands[1])
+            if storage.all().keys().__contains__(obj_key):
+                del storage.all()[obj_key] #delets an instance.
+                storage.save()
+            else:
+                print("** no instance found **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
