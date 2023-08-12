@@ -8,29 +8,39 @@ classes = {
     'BaseModel': BaseModel
 }
 
+classes = {
+    'BaseModel': BaseModel
+}
+
+
 class HBNBCommand(cmd.Cmd):
     """command interpreter class"""
     prompt = "(hbnb) "
+
+    # quit command implementation
     def do_quit(self, args):
         """Quit command to exit the program"""
         print("Exiting the program...")
         return True
     
+    # end of line implementation
     def do_EOF(self, args):
         """To exit the program"""
         print("EOF")
         return True
 
+    # empty line implementation
     def emptyline(self):
         """Empty line + ENTER"""
         pass #just do nothing
 
+    # create comman implementation
     def do_create(self, name=''):
         """Creates a new instance of BaseModel"""
         if name=='':
             print("** class name missing **")
             return
-        elif name != 'BaseModel':
+        elif name not in classes:
             print("** class doesn't exist **")
             return
         #creates an instance of BaseModel
@@ -38,7 +48,9 @@ class HBNBCommand(cmd.Cmd):
         obj.save()
         print(obj.id)
 
+    #show command implementation.
     def do_show(self, args):
+        """Prints the String representation of an instance based on the class name and id"""
         #checks if there is a given argument
         if args == '':
             print("** class name missing **")
@@ -46,10 +58,10 @@ class HBNBCommand(cmd.Cmd):
         #split the given arguments using space.
         commands = args.split()
         #the first is a class name
-        if commands[0] != 'BaseModel':
+        if commands[0] not in classes:
             print("** class doesn't exist **")
             return
-        elif len(commands)<2:
+        elif len(commands) < 2:
             print("** instance id missing **")
             return
         else:
@@ -84,7 +96,8 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
-        # all command implementation
+    # all command implementation
+
     def do_all(self, args):
         """Prints all String representation of all instances based or not on the class name"""
         if args == '':
@@ -101,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
             print(filtered_objs)
         else:
             print("** class doesn't exist **")
-    
+  
     def do_update(self, args):
         """Updates an instance based on the class name and id by adding or updating attribute"""
         if args == "":
