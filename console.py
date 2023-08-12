@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # console.py
 import cmd
+import re
 from models.base_model import BaseModel
 from models.user import User
 from models import storage
@@ -45,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         # creates an instance of BaseModel
-        obj = BaseModel()
+        obj = classes[name]()
         obj.save()
         print(obj.id)
 
@@ -98,7 +99,6 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     # all command implementation
-
     def do_all(self, args):
         """Prints all String representation of all instances based or not on the class name"""
         if args == '':
@@ -126,13 +126,53 @@ class HBNBCommand(cmd.Cmd):
             return
         elif len(commands) < 2:
             print("** instance id missing **")
+            return
         else:
-            obj_key = '{}.{}'.format(commands[0], commands[1])
-            if storage.all().keys().__contains__(obj_key):
-                del storage.all()[obj_key]  # delets an instance.
-                storage.save()
-            else:
+            new_str = f"{commands[0]}.{commands[1]}"
+            if new_str not in storage.all().keys():
                 print("** no instance found **")
+                return
+            elif len(commands) < 3:
+                print("** attribute name missing **")
+                return
+            elif len(commands) < 4:
+                # by assuming id , created_at and updated_at attributes can't be passed
+                print("** value missing **")
+                return
+            else:
+                setattr(storage.all()[new_str], commands[2], commands[3])
+                storage.save()
+
+    def default(self, line):
+        if line is None:
+            return
+
+        cmdPattern = "^([A-Za-z]+)\.([a-z]+)\(([^(]*)\)"
+        paramsPattern = """^"([^"]+)"(?:,\s*(?:"([^"]+)"|(\{[^}]+\}))(?:,\s*(?:("?[^"]+"?)))?)?"""
+        m = re.match(cmdPattern, line)
+        if not m:
+            super().default(line)
+            return
+        mName, method, params = m.groups()
+        m = re.match(paramsPattern, params)
+        params = [item for item in m.groups() if item] if m else []
+
+        cmd = " ".join([mName] + params)
+
+        if method == 'all':
+            return self.do_all(cmd)
+
+        if method == 'count':
+            return self.do_count(cmd)
+
+        if method == 'show':
+            return self.do_show(cmd)
+
+        if method == 'destroy':
+            return self.do_destroy(cmd)
+
+        if method == 'update':
+            return self.do_update(cmd)
 
 
 if __name__ == '__main__':
