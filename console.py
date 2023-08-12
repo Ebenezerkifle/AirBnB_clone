@@ -1,12 +1,9 @@
 #!/usr/bin/python3
-#console.py
+# console.py
 import cmd
 from models.base_model import BaseModel
 from models import storage
-
-classes = {
-    'BaseModel': BaseModel
-}
+"""The command Interpreter representaion"""
 
 classes = {
     'BaseModel': BaseModel
@@ -15,6 +12,7 @@ classes = {
 
 class HBNBCommand(cmd.Cmd):
     """command interpreter class"""
+
     prompt = "(hbnb) "
 
     # quit command implementation
@@ -22,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program"""
         print("Exiting the program...")
         return True
-    
+
     # end of line implementation
     def do_EOF(self, args):
         """To exit the program"""
@@ -32,32 +30,32 @@ class HBNBCommand(cmd.Cmd):
     # empty line implementation
     def emptyline(self):
         """Empty line + ENTER"""
-        pass #just do nothing
+        return False  # just do nothing
 
     # create comman implementation
     def do_create(self, name=''):
         """Creates a new instance of BaseModel"""
-        if name=='':
+        if name == '':
             print("** class name missing **")
             return
         elif name not in classes:
             print("** class doesn't exist **")
             return
-        #creates an instance of BaseModel
+        # creates an instance of BaseModel
         obj = BaseModel()
         obj.save()
         print(obj.id)
 
-    #show command implementation.
+    # show command implementation.
     def do_show(self, args):
         """Prints the String representation of an instance based on the class name and id"""
-        #checks if there is a given argument
+        # checks if there is a given argument
         if args == '':
             print("** class name missing **")
             return
-        #split the given arguments using space.
+        # split the given arguments using space.
         commands = args.split()
-        #the first is a class name
+        # the first is a class name
         if commands[0] not in classes:
             print("** class doesn't exist **")
             return
@@ -71,16 +69,16 @@ class HBNBCommand(cmd.Cmd):
                 print(storage.all()[obj_key])
             else:
                 print("** no instance found **")
-        
+
     def do_destroy(self, args):
         """Delets an instance based on the class name and id"""
-        #checks if there is a given argument which is class name and id
+        # checks if there is a given argument which is class name and id
         if args == '':
             print("** class name missing **")
             return
-        #split the given arguments using space.
+        # split the given arguments using space.
         commands = args.split()
-        #the first is a class name
+        # the first is a class name
         if commands[0] not in classes:
             print("** class doesn't exist **")
             return
@@ -91,7 +89,7 @@ class HBNBCommand(cmd.Cmd):
             # handls the case when there is given a class name and id
             obj_key = '{}.{}'.format(commands[0], commands[1])
             if storage.all().keys().__contains__(obj_key):
-                del storage.all()[obj_key] #delets an instance.
+                del storage.all()[obj_key]  # delets an instance.
                 storage.save()
             else:
                 print("** no instance found **")
@@ -103,9 +101,9 @@ class HBNBCommand(cmd.Cmd):
         if args == '':
             # when there is no class name specified
             print([str(value) for key, value in storage.all().items()])
-        elif args  in classes:
-            #for the case when the class name is given
-            #todo filter...
+        elif args in classes:
+            # for the case when the class name is given
+            # todo filter...
             filtered_objs = []
             for key, value in storage.all().items():
                 cl_name = key.split('.')
@@ -114,7 +112,7 @@ class HBNBCommand(cmd.Cmd):
             print(filtered_objs)
         else:
             print("** class doesn't exist **")
-  
+
     def do_update(self, args):
         """Updates an instance based on the class name and id by adding or updating attribute"""
         if args == "":
@@ -129,10 +127,11 @@ class HBNBCommand(cmd.Cmd):
         else:
             obj_key = '{}.{}'.format(commands[0], commands[1])
             if storage.all().keys().__contains__(obj_key):
-                del storage.all()[obj_key] #delets an instance.
+                del storage.all()[obj_key]  # delets an instance.
                 storage.save()
             else:
                 print("** no instance found **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
