@@ -1,36 +1,36 @@
 #!/usr/bin/python3
 # base_model.py
-"""This is a base model class from which all other classes inherits
-"""
+"""This is a base model class from which all other classes inherits"""
 from datetime import datetime
 import uuid
 import models
 
 
 class BaseModel():
-    """Represent the base model."""
+    """Represent the Base class for all models"""
 
     def __init__(self, *args, **kwargs):
-        """Represents the "base" for all other classes in this project
-    
+        """Initialization of a Base instance
          Attributes:
-            id(String) : a unique id given to an instance of a class.
-            created_at(datetime): stores current datetime when an instance is created
-            updated_at(datetime): stores the datetime when an instance is updated.
+            - id(String) : a unique id given to an instance of a class.
+            - created_at(datetime): stores current datetime when an instance is created
+            - updated_at(datetime): stores the datetime when an instance is updated.
 
          Args:
             - *args: list of arguments
             - **kwargs: dict of key-alues arguments
-    """
+        """
         if kwargs:
             dtime_format = '%Y-%m-%dT%H:%M:%S.%f'
             for key, value in kwargs.items():
                 if key == '__class__':
                     continue
                 elif key == 'updated_at':
-                    self.updated_at = datetime.strptime(kwargs['updated_at'], dtime_format)
+                    self.updated_at = datetime.strptime(
+                        kwargs['updated_at'], dtime_format)
                 elif key == 'created_at':
-                    self.created_at = datetime.strptime(kwargs['created_at'], dtime_format)
+                    self.created_at = datetime.strptime(
+                        kwargs['created_at'], dtime_format)
                 else:
                     setattr(self, key, value)
         else:
@@ -51,13 +51,12 @@ class BaseModel():
         keys/values of the instance"""
         my_dict = self.__dict__.copy()
         my_dict['updated_at'] = self.updated_at.isoformat()
-        my_dict['created_at'] =  self.created_at.isoformat()
+        my_dict['created_at'] = self.created_at.isoformat()
         my_dict['__class__'] = self.__class__.__name__
         return my_dict
 
     def __str__(self):
         """Returns a readable string representation
         of BaseModel instances"""
-
         clsName = self.__class__.__name__
         return "[{}] ({}) {}".format(clsName, self.id, self.__dict__)
