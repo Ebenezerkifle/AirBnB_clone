@@ -39,7 +39,7 @@ class TestFileStorage(unittest.TestCase):
 
     def testStoreBaseModel2(self):
         """ Test save, reload and update functions """
-        self.base_model.my_name = "Abeniezer kifle"
+        self.base_model.my_name = "First name"
         self.base_model.save()
         bm_dict = self.base_model.to_dict()
         all_objs = storage.all()
@@ -47,7 +47,7 @@ class TestFileStorage(unittest.TestCase):
         key = bm_dict['__class__'] + "." + bm_dict['id']
 
         self.assertEqual(key in all_objs, True)
-        self.assertEqual(bm_dict['my_name'], "Abeniezer kifle")
+        self.assertEqual(bm_dict['my_name'], "First name")
 
         create1 = bm_dict['created_at']
         update1 = bm_dict['updated_at']
