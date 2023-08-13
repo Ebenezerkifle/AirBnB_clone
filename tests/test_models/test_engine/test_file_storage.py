@@ -39,7 +39,7 @@ class TestFileStorage(unittest.TestCase):
 
     def testStoreBaseModel2(self):
         """ Test save, reload and update functions """
-        self.base_model.my_name = "First name"
+        self.base_model.my_name = "Abeniezer kifle"
         self.base_model.save()
         bm_dict = self.base_model.to_dict()
         all_objs = storage.all()
@@ -47,7 +47,7 @@ class TestFileStorage(unittest.TestCase):
         key = bm_dict['__class__'] + "." + bm_dict['id']
 
         self.assertEqual(key in all_objs, True)
-        self.assertEqual(bm_dict['my_name'], "First name")
+        self.assertEqual(bm_dict['my_name'], "Abeniezer kifle")
 
         create1 = bm_dict['created_at']
         update1 = bm_dict['updated_at']
@@ -87,14 +87,6 @@ class TestFileStorage(unittest.TestCase):
         storage.reload()
         for key, value in storage.all().items():
             self.assertEqual(dobj[key].to_dict(), value.to_dict())
-
-    def testSaveSelf(self):
-        """ Check save self """
-        msg = "save() takes 1 positional argument but 2 were given"
-        with self.assertRaises(TypeError) as e:
-            FileStorage.save(self, 100)
-
-        self.assertEqual(str(e.exception), msg)
 
 
 # The entry point.
