@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines unittests for models/state.py.
+"""Defines unittests for models/amenity.py.
 """
 import unittest
 from models.base_model import BaseModel
