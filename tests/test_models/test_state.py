@@ -8,7 +8,7 @@ from models import storage
 from datetime import datetime
 
 
-class TestState_Intialization(BaseModel):
+class TestState_Intialization(unittest.TestCase):
     """Unittests for testing the intialization of State class"""
 
     @classmethod
@@ -20,7 +20,7 @@ class TestState_Intialization(BaseModel):
     def test_for_instantiation(self):
         """Tests instantiation of State class."""
         state = State()
-        self.assertEqual(str(type(State)), "<class 'models.state.State'>")
+        self.assertEqual(str(type(state)), "<class 'models.state.State'>")
         self.assertIsInstance(state, State)
         self.assertTrue(issubclass(type(state), BaseModel))
 
