@@ -153,6 +153,15 @@ class HBNBCommand(cmd.Cmd):
                 setattr(storage.all()[new_str], commands[2], commands[3])
                 storage.save()
 
+    def do_update2(self, cmd):
+        """Updates an instance based on the class name and id by taking the dictionary of attributes and values"""
+        print('******************')
+        args = cmd.split()
+        print(args)
+        if args[0] == "":
+            print("** class name missing **")
+            return
+
     def do_count(self, args):
         """Returns the count of an instances of a given class"""
         if args == '':
