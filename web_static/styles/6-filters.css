@@ -1,0 +1,119 @@
+section.filters {
+    background-color: white;
+    height: 70px;
+    width: 100%;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+section.filters button {
+    font-size: 18px;
+    background-color: #FF5A5F;
+    color: #FFFFFF;
+    height: 48px;
+    width: 20%;
+    border: 0;
+    border-radius: 4px;
+    margin: auto 30px;
+}
+
+section.filters button:hover {
+    opacity: 90%;
+}
+
+
+section.filters div.locations {
+    height: 100%;
+    width: 25%;
+    border-right: 1px solid #DDDDDD;
+
+}
+
+/* section.filters div.locations,
+section.filters div.amenities {
+    height: 100%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+} */
+
+div.locations h4 {
+    font-weight: 400;
+    font-size: 14px;
+    margin: 4px auto;
+    margin-left: 50px;
+}
+
+div.locations h3 {
+    font-weight: 600;
+    margin-bottom: 0;
+    margin-left: 50px;
+}
+
+ul.popover {
+    list-style: none;
+    border: 1px solid #DDDDDD;
+    background-color: #FAFAFA;
+    border-radius: 4px;
+    padding-left: 0px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+div.locations ul,
+div.amenities ul {
+    display: none;
+}
+
+section.filters div.locations:hover>ul,
+section.filters div.amenities:hover>ul {
+    display: block;
+    z-index: 999;
+}
+
+
+div.locations ul.popover h2 {
+    /* margin: 30px 0px 0px 0px; */
+    /* top, right, bottom, left*/
+    padding-left: 40px;
+    margin-bottom: 0px;
+
+}
+
+div.locations ul.popover p {
+    padding: 0px 0px 0px 50px;
+    font-size: 16px;
+}
+
+section.filters div.amenities {
+    height: 100%;
+    width: 25%;
+    margin-right: auto;
+}
+
+div.amenities h3 {
+    font-weight: 600;
+    margin-bottom: 0px;
+    margin-left: 50px;
+}
+
+div.amenities h4 {
+    font-weight: 400;
+    font-size: 14px;
+    margin: 4px auto;
+    margin-left: 50px;
+}
+
+
+div.amenities ul.popover p {
+    font-size: 16px;
+}
+
+div.locations ul.popover li p,
+div.amenities ul.popover li p {
+    padding-left: 50px;
+    margin: 6px;
+}
