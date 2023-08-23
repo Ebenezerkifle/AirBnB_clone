@@ -31,15 +31,6 @@ section.filters div.locations {
 
 }
 
-/* section.filters div.locations,
-section.filters div.amenities {
-    height: 100%;
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-} */
-
 div.locations h4 {
     font-weight: 400;
     font-size: 14px;
@@ -74,13 +65,11 @@ section.filters div.amenities:hover>ul {
     z-index: 999;
 }
 
-
 div.locations ul.popover h2 {
     /* margin: 30px 0px 0px 0px; */
     /* top, right, bottom, left*/
     padding-left: 40px;
     margin-bottom: 0px;
-
 }
 
 div.locations ul.popover p {
@@ -106,7 +95,6 @@ div.amenities h4 {
     margin: 4px auto;
     margin-left: 50px;
 }
-
 
 div.amenities ul.popover p {
     font-size: 16px;
