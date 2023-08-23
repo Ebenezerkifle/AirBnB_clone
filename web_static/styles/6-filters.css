@@ -23,12 +23,10 @@ section.filters button:hover {
     opacity: 90%;
 }
 
-
 section.filters div.locations {
     height: 100%;
     width: 25%;
     border-right: 1px solid #DDDDDD;
-
 }
 
 div.locations h4 {
